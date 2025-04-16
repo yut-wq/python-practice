@@ -122,6 +122,35 @@ class LinkedList:
         
         return False
     
+    def get_at_index(self, index):
+        """
+        Get the data of the node at the specified index.
+        Raises IndexError if the index is out of range.
+        
+        Args:
+            index: The index of the node to get (0-based).
+            
+        Returns:
+            The data of the node at the specified index.
+        """
+        # Check if index is out of range
+        if index < 0:
+            raise IndexError("インデックスは0以上である必要があります")
+        
+        current = self.head
+        current_index = 0
+        
+        # Traverse to the specified index
+        while current and current_index < index:
+            current = current.next
+            current_index += 1
+        
+        # If we reached the end of the list before reaching the index
+        if not current:
+            raise IndexError(f"インデックス {index} は範囲外です")
+        
+        return current.data
+    
     def display(self):
         """Display the linked list."""
         elements = []
@@ -175,3 +204,11 @@ if __name__ == "__main__":
     
     # Get the length
     print("\nLength of the list:", linked_list.size())
+    
+    # Get element at index
+    try:
+        print("\nElement at index 2:", linked_list.get_at_index(2))
+        print("Element at index 0:", linked_list.get_at_index(0))
+        print("Element at index 10:", linked_list.get_at_index(10))
+    except IndexError as e:
+        print(f"エラー: {e}")
