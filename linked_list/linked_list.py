@@ -17,12 +17,33 @@ class LinkedList:
     def __init__(self):
         """Initialize an empty linked list."""
         self.head = None
+
+    def size(self):
+        """Get the length of the linked list."""
+        count = 0
+        current = self.head
+        
+        while current:
+            count += 1
+            current = current.next
+        
+        return count
     
     def is_empty(self):
         """Check if the linked list is empty."""
         return self.head is None
+
+    def push_front(self, data):
+        """Add a new node with the given data to the beginning of the linked list."""
+        new_node = Node(data)
+        
+        # Set the new node's next to the current head
+        new_node.next = self.head
+        
+        # Update the head to the new node
+        self.head = new_node
     
-    def append(self, data):
+    def push_back(self, data):
         """Add a new node with the given data to the end of the linked list."""
         new_node = Node(data)
         
@@ -39,16 +60,6 @@ class LinkedList:
         # Add the new node at the end
         current.next = new_node
     
-    def prepend(self, data):
-        """Add a new node with the given data to the beginning of the linked list."""
-        new_node = Node(data)
-        
-        # Set the new node's next to the current head
-        new_node.next = self.head
-        
-        # Update the head to the new node
-        self.head = new_node
-    
     def insert(self, data, position):
         """
         Insert a new node with the given data at the specified position.
@@ -56,7 +67,7 @@ class LinkedList:
         """
         # If position is 0, prepend the node
         if position == 0:
-            self.prepend(data)
+            self.push_front(data)
             return
         
         new_node = Node(data)
@@ -70,7 +81,7 @@ class LinkedList:
         
         # If we reached the end of the list, append the node
         if not current:
-            self.append(data)
+            self.push_back(data)
             return
         
         # Insert the new node
@@ -111,17 +122,6 @@ class LinkedList:
         
         return False
     
-    def get_length(self):
-        """Get the length of the linked list."""
-        count = 0
-        current = self.head
-        
-        while current:
-            count += 1
-            current = current.next
-        
-        return count
-    
     def display(self):
         """Display the linked list."""
         elements = []
@@ -140,16 +140,16 @@ if __name__ == "__main__":
     linked_list = LinkedList()
     
     # Append elements
-    linked_list.append(1)
-    linked_list.append(2)
-    linked_list.append(3)
+    linked_list.push_back(1)
+    linked_list.push_back(2)
+    linked_list.push_back(3)
     
     # Display the list
     print("After appending 1, 2, 3:")
     print(linked_list.display())
     
     # Prepend an element
-    linked_list.prepend(0)
+    linked_list.push_front(0)
     
     # Display the list
     print("\nAfter prepending 0:")
@@ -174,4 +174,4 @@ if __name__ == "__main__":
     print("Search for 5:", linked_list.search(5))
     
     # Get the length
-    print("\nLength of the list:", linked_list.get_length())
+    print("\nLength of the list:", linked_list.size())
